@@ -20,4 +20,31 @@ export class BookService {
   async getById(id: string): Promise<Book> {
     return this.bookModel.findById(id).exec()
   }
+
+  async getGroupedByGenre(): Promise<any[]> {
+    var genres = this.bookModel.aggregate([
+      { $group: { _id: '$genre', books: { $push: '$$ROOT' } } },
+    ])
+
+    return genres.exec()
+  }
+
+  async getGroupedByGenreAndYear(): Promise<any[]> {
+    var genresYears = this.bookModel.aggregate([
+      {
+        $group: {
+          _id: { genre: '$genre', year: { $year: '$releaseDate' } },
+          books: { $push: '$$ROOT' },
+        },
+      },
+      {
+        $group: {
+          _id: '$_id.genre',
+          books: { $push: '$$ROOT' },
+        },
+      },
+    ])
+
+    return genresYears.exec()
+  }
 }

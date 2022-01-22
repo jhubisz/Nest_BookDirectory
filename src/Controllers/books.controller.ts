@@ -18,6 +18,16 @@ export class BooksController {
     return await this.bookService.getAll()
   }
 
+  @Get('/genres/')
+  async getGenres(): Promise<any[]> {
+    return await this.bookService.getGroupedByGenre()
+  }
+
+  @Get('/genres/years/')
+  async getYears(): Promise<any[]> {
+    return await this.bookService.getGroupedByGenreAndYear()
+  }
+
   @Get(':id')
   async getBook(@Param() params): Promise<Book> {
     return await this.bookService.getById(params.id)
