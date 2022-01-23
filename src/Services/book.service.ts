@@ -40,7 +40,7 @@ export class BookService {
       {
         $group: {
           _id: '$_id.genre',
-          books: { $push: '$$ROOT' },
+          years: { $push: '$$ROOT' },
         },
       },
     ])

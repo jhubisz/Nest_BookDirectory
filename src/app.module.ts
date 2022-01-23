@@ -1,10 +1,13 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { MongooseModule } from '@nestjs/mongoose'
-import { BooksController, ReviewsController } from './Controllers'
+import {
+  BooksController,
+  ReviewsController,
+  AuthorsController,
+} from './Controllers'
 import { Book, BookSchema, Review, ReviewSchema } from './Repository/Models'
-import { BookService } from './Services/book.service'
-import { ReviewService } from './Services/review.service'
+import { BookService, ReviewService, AuthorService } from './Services'
 
 @Module({
   imports: [
@@ -15,7 +18,7 @@ import { ReviewService } from './Services/review.service'
       { name: Book.name, schema: BookSchema },
     ]),
   ],
-  controllers: [BooksController, ReviewsController],
-  providers: [BookService, ReviewService],
+  controllers: [BooksController, ReviewsController, AuthorsController],
+  providers: [BookService, ReviewService, AuthorService],
 })
 export class AppModule {}

@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import { Review } from '.'
+import { Review, ReviewDocument } from '.'
 import { Document } from 'mongoose'
 
 export type BookDocument = Book & Document
@@ -19,7 +19,7 @@ export class Book {
   genre: string
 
   @Prop()
-  reviews: Array<Review>
+  reviews: ReviewDocument[]
 }
 
 export const BookSchema = SchemaFactory.createForClass(Book)
